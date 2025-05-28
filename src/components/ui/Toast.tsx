@@ -142,7 +142,7 @@ function showToastPromise<T, U>(
     duration?: number;
   }
 ) {
-  const variant: { [key in ToastPrimitive.ToastPromiseState]: ToastVariant } = {
+  const variant: Record<ToastPrimitive.ToastPromiseState, ToastVariant> = {
     pending: "default",
     fulfilled: "success",
     rejected: "error",

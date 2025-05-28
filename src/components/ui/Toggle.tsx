@@ -31,7 +31,7 @@ const toggleVariants = cva(
 
 type ToggleButtonRootProps<T extends ValidComponent = "button"> =
   ToggleButtonPrimitive.ToggleButtonRootProps<T> &
-  VariantProps<typeof toggleVariants> & { class?: string | undefined };
+    VariantProps<typeof toggleVariants> & { class?: string | undefined };
 
 const Toggle = <T extends ValidComponent = "button">(
   props: PolymorphicProps<T, ToggleButtonRootProps<T>>
