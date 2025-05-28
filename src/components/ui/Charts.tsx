@@ -2,9 +2,6 @@ import type { Component } from "solid-js";
 import { createEffect, createSignal, mergeProps, on, onCleanup, onMount } from "solid-js";
 import { unwrap } from "solid-js/store";
 
-import type { Ref } from "@solid-primitives/refs";
-import { mergeRefs } from "@solid-primitives/refs";
-
 import type {
   ChartComponent,
   ChartData,
@@ -42,7 +39,7 @@ interface TypedChartProps {
   data: ChartData;
   options?: ChartOptions;
   plugins?: ChartPlugin[];
-  ref?: Ref<HTMLCanvasElement | null>;
+  ref?: (el: HTMLCanvasElement | null) => void;
   width?: number | undefined;
   height?: number | undefined;
 }
@@ -57,7 +54,7 @@ interface ChartContext {
 }
 
 const BaseChart: Component<ChartProps> = (rawProps) => {
-  const [canvasRef, setCanvasRef] = createSignal<HTMLCanvasElement | null>();
+  const [canvasEl, setCanvasEl] = createSignal<HTMLCanvasElement | null>();
   const [chart, setChart] = createSignal<Chart>();
 
   const props = mergeProps(
@@ -71,7 +68,7 @@ const BaseChart: Component<ChartProps> = (rawProps) => {
   );
 
   const init = () => {
-    const ctx = canvasRef()?.getContext("2d") as ChartItem;
+    const ctx = canvasEl()?.getContext("2d") as ChartItem;
     const config = unwrap(props);
     const chart = new Chart(ctx, {
       type: config.type,
@@ -131,13 +128,16 @@ const BaseChart: Component<ChartProps> = (rawProps) => {
 
   onCleanup(() => {
     chart()?.destroy();
-    mergeRefs(props.ref, null);
+    props.ref?.(null);
   });
 
   Chart.register(Colors, Filler, Legend, Tooltip);
   return (
     <canvas
-      ref={mergeRefs(props.ref, (el) => setCanvasRef(el))}
+      ref={(el) => {
+        setCanvasEl(el);
+        props.ref?.(el);
+      }}
       height={props.height}
       width={props.width}
     />
