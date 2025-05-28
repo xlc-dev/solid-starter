@@ -50,7 +50,7 @@ type TextFieldInputProps<T extends ValidComponent = "input"> =
 const TextFieldInput = <T extends ValidComponent = "input">(
   rawProps: PolymorphicProps<T, TextFieldInputProps<T>>
 ) => {
-  const props = mergeProps<TextFieldInputProps<T>[]>({ type: "text" }, rawProps);
+  const props = mergeProps<Array<TextFieldInputProps<T>>>({ type: "text" }, rawProps);
   const [local, others] = splitProps(props as TextFieldInputProps, ["type", "class"]);
   return (
     <TextFieldPrimitive.Input

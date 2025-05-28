@@ -10,12 +10,12 @@ export type TimelinePropsItem = Omit<
   bulletSize?: number;
 };
 
-export interface TimelineProps {
+export type TimelineProps = {
   items: TimelinePropsItem[];
   activeItem: number;
   bulletSize?: number;
   lineSize?: number;
-}
+};
 
 /*
   No bullet or line is active when activeItem is -1
@@ -49,7 +49,7 @@ const Timeline: Component<TimelineProps> = (rawProps) => {
   );
 };
 
-export interface TimelineItemProps {
+export type TimelineItemProps = {
   title: JSXElement;
   description?: JSXElement;
   bullet?: JSXElement;
@@ -59,7 +59,7 @@ export interface TimelineItemProps {
   class?: string;
   bulletSize: number;
   lineSize: number;
-}
+};
 
 const TimelineItem: Component<TimelineItemProps> = (props) => {
   const [local, others] = splitProps(props, [
@@ -99,12 +99,12 @@ const TimelineItem: Component<TimelineItemProps> = (props) => {
   );
 };
 
-export interface TimelineItemBulletProps {
+export type TimelineItemBulletProps = {
   children?: JSXElement;
   isActive?: boolean;
   bulletSize: number;
   lineSize: number;
-}
+};
 
 const TimelineItemBullet: Component<TimelineItemBulletProps> = (props) => {
   return (

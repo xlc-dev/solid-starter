@@ -35,7 +35,7 @@ const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
-interface SidebarContext {
+type SidebarContext = {
   state: Accessor<"expanded" | "collapsed">;
   open: Accessor<boolean>;
   setOpen: (open: boolean) => void;
@@ -43,7 +43,7 @@ interface SidebarContext {
   setOpenMobile: (open: boolean) => void;
   isMobile: Accessor<boolean>;
   toggleSidebar: () => void;
-}
+};
 
 const SidebarContext = createContext<SidebarContext | null>(null);
 

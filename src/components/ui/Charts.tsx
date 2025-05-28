@@ -35,23 +35,23 @@ import {
   Tooltip,
 } from "chart.js";
 
-interface TypedChartProps {
+type TypedChartProps = {
   data: ChartData;
   options?: ChartOptions;
   plugins?: ChartPlugin[];
   ref?: (el: HTMLCanvasElement | null) => void;
   width?: number | undefined;
   height?: number | undefined;
-}
+};
 
 type ChartProps = TypedChartProps & {
   type: ChartType;
 };
 
-interface ChartContext {
+type ChartContext = {
   chart: Chart;
   tooltip: TooltipModel<keyof ChartTypeRegistry>;
-}
+};
 
 const BaseChart: Component<ChartProps> = (rawProps) => {
   const [canvasEl, setCanvasEl] = createSignal<HTMLCanvasElement | null>();

@@ -1,5 +1,5 @@
 import { initTRPC } from "@trpc/server";
-import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
+import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 
 export const createContext = ({ req, resHeaders }: FetchCreateContextFnOptions) => {
   return { req, resHeaders };

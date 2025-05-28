@@ -17,6 +17,11 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "drizzle.config.ts", "app.config.ts"],
+  "include": [
+    "src/**/*",
+    "drizzle.config.ts",
+    "app.config.ts",
+    "eslint.config.js"
+  ],
   "exclude": ["node_modules", ".output", ".vinxi", "drizzle"]
 }

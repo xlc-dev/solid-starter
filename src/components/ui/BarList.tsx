@@ -19,7 +19,7 @@ type ValueFormatter = (value: number) => string;
 const defaultValueFormatter: ValueFormatter = (value: number) => value.toString();
 
 type BarListProps<T> = ComponentProps<"div"> & {
-  data: Bar<T>[];
+  data: Array<Bar<T>>;
   valueFormatter?: ValueFormatter;
   sortOrder?: SortOrder;
 };

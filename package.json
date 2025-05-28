@@ -11,8 +11,8 @@
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
-    "format": "prettier --write . && eslint --fix .",
-    "lint": "prettier --check . && drizzle-kit check && eslint .",
+    "format": "eslint --fix .",
+    "lint": "drizzle-kit check && eslint . && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
@@ -53,10 +53,12 @@
     "@types/better-sqlite3": "^7.6.13",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.27.0",
+    "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-solid": "^0.14.5",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.1.7",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.0",
     "vinxi": "^0.5.6"
   }

@@ -21,12 +21,12 @@ type UseCarouselParameters = Parameters<typeof createEmblaCarousel>;
 type CarouselOptions = NonNullable<UseCarouselParameters[0]>;
 type CarouselPlugin = NonNullable<UseCarouselParameters[1]>;
 
-interface CarouselProps {
+type CarouselProps = {
   opts?: ReturnType<CarouselOptions>;
   plugins?: ReturnType<CarouselPlugin>;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
-}
+};
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof createEmblaCarousel>[0];
@@ -50,7 +50,7 @@ const useCarousel = () => {
 };
 
 const Carousel: Component<CarouselProps & ComponentProps<"div">> = (rawProps) => {
-  const props = mergeProps<(CarouselProps & ComponentProps<"div">)[]>(
+  const props = mergeProps<Array<CarouselProps & ComponentProps<"div">>>(
     { orientation: "horizontal" },
     rawProps
   );
