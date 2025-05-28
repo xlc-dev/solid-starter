@@ -1,0 +1,15 @@
+node_modules
+dist/
+.DS_Store
+.env.prod
+*.local
+tmp
+.idea/
+.settings/
+*.sublime-workspace
+.vscode/*
+Thumbs.db
+twapp.db
+logs
+*.log
+pnpm-lock.yaml
