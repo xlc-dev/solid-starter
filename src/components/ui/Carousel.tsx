@@ -74,9 +74,9 @@ const Carousel: Component<CarouselProps & ComponentProps<"div">> = (rawProps) =>
   const [canScrollPrev, setCanScrollPrev] = createSignal(false);
   const [canScrollNext, setCanScrollNext] = createSignal(false);
 
-  const onSelect = (api: NonNullable<ReturnType<CarouselApi>>) => {
-    setCanScrollPrev(api.canScrollPrev());
-    setCanScrollNext(api.canScrollNext());
+  const onSelect = (emblaApi: NonNullable<ReturnType<CarouselApi>>) => {
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
   };
 
   const scrollPrev = () => {

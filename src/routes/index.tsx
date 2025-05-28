@@ -13,7 +13,9 @@ const getGreeting = query(async () => {
 
 export const route = {
   preload: () => {
-    getGreeting();
+    getGreeting().catch((err) => {
+      console.error(err);
+    });
   },
 } satisfies RouteDefinition;
 

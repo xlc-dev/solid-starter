@@ -70,13 +70,13 @@ const BaseChart: Component<ChartProps> = (rawProps) => {
   const init = () => {
     const ctx = canvasEl()?.getContext("2d") as ChartItem;
     const config = unwrap(props);
-    const chart = new Chart(ctx, {
+    const chartInstance = new Chart(ctx, {
       type: config.type,
       data: config.data,
       options: config.options,
       plugins: config.plugins,
     });
-    setChart(chart);
+    setChart(chartInstance);
   };
 
   onMount(() => init());
@@ -169,8 +169,8 @@ function showTooltip(context: ChartContext) {
   });
 
   content += `<div class="mt-1 text-muted-foreground">`;
-  const body = model.body.flatMap((body) => body.lines);
-  body.forEach((line, i) => {
+  const bodyArray = model.body.flatMap((item) => item.lines);
+  bodyArray.forEach((line, i) => {
     const colors = model.labelColors[i];
     content += `
         <div class="flex items-center">
