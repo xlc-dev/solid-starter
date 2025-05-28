@@ -183,28 +183,6 @@
   }
 }
 
-@utility container {
-  @apply px-8;
-
-  @media (width >=--theme(--breakpoint-sm)) {
-    @apply max-w-none;
-  }
-
-  @media (max-width: 640px) {
-    @apply px-4;
-  }
-}
-
-@utility step {
-  counter-increment: step;
-
-  &:before {
-    @apply bg-muted border-background absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 text-center -indent-px font-mono text-base font-medium;
-    @apply mt-[-4px] ml-[-50px];
-    content: counter(step);
-  }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
