@@ -14,6 +14,9 @@
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "isolatedModules": true
-  }
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "drizzle.config.ts", "app.config.ts"],
+  "exclude": ["node_modules", ".output", ".vinxi", "drizzle"]
 }
