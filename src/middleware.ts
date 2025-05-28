@@ -5,7 +5,7 @@ import { json } from "@solidjs/router";
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS", "TRACE"];
 const TRUSTED_ORIGINS = (import.meta.env.VITE_TRUSTED_ORIGINS || "")
   .split(",")
-  .map((origin) => origin.trim())
+  .map((origin: string) => origin.trim())
   .filter(Boolean);
 
 const IS_DEV = process.env.NODE_ENV === "development";
