@@ -1,5 +1,4 @@
 import { createMiddleware } from "@solidjs/start/middleware";
-import { randomBytes } from "crypto";
 import { json } from "@solidjs/router";
 
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS", "TRACE"];
@@ -24,58 +23,46 @@ export default createMiddleware({
       });
     }
 
-    const nonce = randomBytes(16).toString("base64");
-    event.locals.nonce = nonce;
-    const scriptSrcValues = [`'nonce-${nonce}'`, "'strict-dynamic'"];
-
-    if (IS_DEV) {
-      scriptSrcValues.push("'unsafe-eval'"); // Needed for Vite HMR
-    }
-
-    const connectSrcValues = [
+    const connectSrcParts = [
       "'self'",
-      "https://eu.i.posthog.com",
+      IS_DEV ? "ws://localhost:*" : "",
+      IS_DEV ? "wss://localhost:*" : "",
       "https://eu-assets.i.posthog.com",
+      "https://eu.i.posthog.com",
     ];
 
-    if (IS_DEV) {
-      connectSrcValues.push("ws://localhost:*");
-      // connectSrcValues.push("http://localhost:*");
-    }
+    const connectSrc = connectSrcParts.filter(Boolean).join(" ");
 
-    const styleSrcValues = ["'self'"];
-
-    if (IS_DEV) {
-      styleSrcValues.push("'unsafe-inline'"); // Needed for Vite HMR
-    }
-
-    const csp = `
-      default-src 'self';
-      script-src ${scriptSrcValues.join(" ")};
-      style-src ${styleSrcValues.join(" ")};
-      connect-src ${connectSrcValues.join(" ")};
-      img-src 'self' data: https://eu-assets.i.posthog.com;
-      font-src 'self' data:;
-      form-action 'self';
-      object-src 'none';
-      base-uri 'none';
-      frame-ancestors 'none';
-    `
-      .replace(/\s{2,}/g, " ")
-      .trim();
+    const csp = [
+      "default-src 'self'",
+      `connect-src ${connectSrc}`,
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://eu-assets.i.posthog.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data:",
+      "font-src 'self'",
+      "worker-src 'self'",
+      "form-action 'self'",
+      "base-uri 'self'",
+      "manifest-src 'self'",
+      "media-src 'none'",
+      "object-src 'none'",
+      "frame-src 'none'",
+      "child-src 'none'",
+      // "require-trusted-types-for 'script'", // Firefox doesn't support this yet
+    ].join("; ");
 
     response.headers.set("Content-Security-Policy", csp);
     response.headers.set("X-Content-Type-Options", "nosniff");
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     response.headers.set(
       "Permissions-Policy",
-      "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+      "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), usb=(), xr-spatial-tracking=()",
     );
 
     if (url.protocol === "https:") {
       response.headers.set(
         "Strict-Transport-Security",
-        "max-age=63072000; includeSubDomains; preload"
+        "max-age=63072000; includeSubDomains; preload",
       );
     }
 
@@ -114,12 +101,15 @@ export default createMiddleware({
       (currentResponse.headers.get("Vary") || "")
         .split(",")
         .map((v) => v.trim())
-        .filter(Boolean)
+        .filter(Boolean),
     );
     varyValues.add("Origin");
 
     if (origin && TRUSTED_ORIGINS.includes(origin)) {
-      if (request.method === "OPTIONS" && request.headers.get("Access-Control-Request-Method")) {
+      if (
+        request.method === "OPTIONS" &&
+        request.headers.get("Access-Control-Request-Method")
+      ) {
         varyValues.add("Access-Control-Request-Method");
         varyValues.add("Access-Control-Request-Headers");
 
