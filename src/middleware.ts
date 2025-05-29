@@ -25,6 +25,7 @@ export default createMiddleware({
 
     const connectSrcParts = [
       "'self'",
+      IS_DEV ? "data:" : "",
       IS_DEV ? "ws://localhost:*" : "",
       IS_DEV ? "wss://localhost:*" : "",
       "https://eu-assets.i.posthog.com",
