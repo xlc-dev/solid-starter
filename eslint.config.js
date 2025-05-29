@@ -9,7 +9,7 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        project: true,
+        project: "./tsconfig.json",
       },
     },
     plugins: {
@@ -30,10 +30,16 @@ export default tseslint.config(
           plugins: ["prettier-plugin-tailwindcss"],
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-non-null-assertion": "off",
-
-      "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/prefer-readonly": "warn",
       "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
