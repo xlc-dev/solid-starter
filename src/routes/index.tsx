@@ -30,7 +30,7 @@ export default function Home() {
         <Title>solid-starter</Title>
       </MetaProvider>
 
-      <div class="mx-auto max-w-md space-y-6 p-4 text-center">
+      <div class="mx-auto max-w-2xl space-y-6 p-4 text-center">
         <Show when={import.meta.env.VITE_ENABLE_COLOR_MODE === "true"}>
           <ThemeToggle />
         </Show>
