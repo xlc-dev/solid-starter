@@ -46,7 +46,7 @@ const SegmentedControlGroup = (props: {
     <div
       {...others}
       class={cn(
-        "relative inline-flex items-center justify-center rounded-md bg-muted p-1 gap-1",
+        "relative inline-flex items-center rounded-md bg-muted p-1",
         "shadow-inner border border-muted-foreground/10",
         local.class,
       )}
@@ -66,17 +66,18 @@ const SegmentedControlIndicator = (
     <SegmentedControlPrimitive.Indicator
       {...others}
       class={cn(
-        "absolute z-0",
-        "transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
-        "bg-background shadow-sm rounded-md",
-        "data-[state=visible]:opacity-100 opacity-0",
-        "will-change-[left,width]",
+        "absolute top-1 bottom-1 z-0",
+        "bg-background",
+        "border border-sidebar-foreground",
+        "opacity-100",
+        "rounded-sm",
+        "transition-[transform,width] duration-300 ease-out",
+        "will-change-[transform,width]",
         local.class,
       )}
     />
   );
 };
-
 const SegmentedControlItem = (
   props: ComponentProps<typeof SegmentedControlPrimitive.Item> & {
     class?: string;
@@ -121,9 +122,9 @@ const SegmentedControlItemControl = (
       class={cn(
         "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all",
         "bg-transparent text-muted-foreground",
-        "hover:bg-accent hover:text-accent-foreground",
+        "hover:text-accent-foreground",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        "data-[checked]:bg-background data-[checked]:text-foreground data-[checked]:shadow-sm",
+        "data-[checked]:text-foreground  cursor-pointer",
         "disabled:pointer-events-none disabled:opacity-50",
         local.class,
       )}
