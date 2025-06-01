@@ -15,12 +15,12 @@ export default createMiddleware({
     const url = new URL(request.url);
 
     if (!IS_DEV && url.protocol === "http:") {
-      const httpsUrl = new URL(url.toString());
-      httpsUrl.protocol = "https:";
-      return new Response(null, {
-        status: 308,
-        headers: { Location: httpsUrl.toString() },
-      });
+      // const httpsUrl = new URL(url.toString());
+      // httpsUrl.protocol = "https:";
+      // return new Response(null, {
+      //   status: 308,
+      //   headers: { Location: httpsUrl.toString() },
+      // });
     }
 
     const connectSrcParts = [

@@ -1,5 +1,5 @@
 import type { JSX, ValidComponent } from "solid-js";
-import { Match, splitProps, Switch } from "solid-js";
+import { Match, splitProps, Switch, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
@@ -125,8 +125,12 @@ function showToast(props: {
   ToastPrimitive.toaster.show((data) => (
     <Toast toastId={data.toastId} variant={props.variant} duration={props.duration}>
       <div class="grid gap-1">
-        {props.title && <ToastTitle>{props.title}</ToastTitle>}
-        {props.description && <ToastDescription>{props.description}</ToastDescription>}
+        <Show when={props.title}>
+          <ToastTitle>{props.title}</ToastTitle>
+        </Show>
+        <Show when={props.description}>
+          <ToastDescription>{props.description}</ToastDescription>
+        </Show>
       </div>
       <ToastClose />
     </Toast>

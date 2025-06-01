@@ -1,5 +1,5 @@
 import type { Component, ComponentProps } from "solid-js";
-import { mergeProps, splitProps } from "solid-js";
+import { mergeProps, splitProps, Show } from "solid-js";
 
 import { cn } from "~/utils";
 
@@ -58,7 +58,7 @@ const ProgressCircle: Component<ProgressCircleProps> = (rawProps) => {
           stroke-linecap="round"
           class={cn("stroke-secondary transition-colors ease-linear")}
         />
-        {value() >= 0 ? (
+        <Show when={value() >= 0} fallback={null}>
           <circle
             r={normalizedRadius()}
             cx={radius()}
@@ -74,7 +74,7 @@ const ProgressCircle: Component<ProgressCircleProps> = (rawProps) => {
               local.showAnimation ? "transition-all duration-300 ease-in-out" : ""
             )}
           />
-        ) : null}
+        </Show>
       </svg>
       <div class={cn("absolute flex")}>{local.children}</div>
     </div>

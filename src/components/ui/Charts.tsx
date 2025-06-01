@@ -1,5 +1,6 @@
 import type { Component } from "solid-js";
 import { createEffect, createSignal, mergeProps, on, onCleanup, onMount } from "solid-js";
+// eslint-disable-next-line solid/no-proxy-apis
 import { unwrap } from "solid-js/store";
 
 import type {
