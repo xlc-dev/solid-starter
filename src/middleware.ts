@@ -15,12 +15,12 @@ export default createMiddleware({
     const url = new URL(request.url);
 
     if (!IS_DEV && url.protocol === "http:") {
-      // const httpsUrl = new URL(url.toString());
-      // httpsUrl.protocol = "https:";
-      // return new Response(null, {
-      //   status: 308,
-      //   headers: { Location: httpsUrl.toString() },
-      // });
+      const httpsUrl = new URL(url.toString());
+      httpsUrl.protocol = "https:";
+      return new Response(null, {
+        status: 308,
+        headers: { Location: httpsUrl.toString() },
+      });
     }
 
     const connectSrcParts = [
@@ -57,13 +57,13 @@ export default createMiddleware({
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     response.headers.set(
       "Permissions-Policy",
-      "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+      "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), usb=(), xr-spatial-tracking=()",
     );
 
     if (url.protocol === "https:") {
       response.headers.set(
         "Strict-Transport-Security",
-        "max-age=63072000; includeSubDomains; preload"
+        "max-age=63072000; includeSubDomains; preload",
       );
     }
 
@@ -102,12 +102,15 @@ export default createMiddleware({
       (currentResponse.headers.get("Vary") || "")
         .split(",")
         .map((v) => v.trim())
-        .filter(Boolean)
+        .filter(Boolean),
     );
     varyValues.add("Origin");
 
     if (origin && TRUSTED_ORIGINS.includes(origin)) {
-      if (request.method === "OPTIONS" && request.headers.get("Access-Control-Request-Method")) {
+      if (
+        request.method === "OPTIONS" &&
+        request.headers.get("Access-Control-Request-Method")
+      ) {
         varyValues.add("Access-Control-Request-Method");
         varyValues.add("Access-Control-Request-Headers");
 
