@@ -40,9 +40,11 @@ const Alert = <T extends ValidComponent = "div">(
 };
 
 const AlertTitle: Component<ComponentProps<"h5">> = (props) => {
-  const [local, others] = splitProps(props, ["class"]);
+  const [local, others] = splitProps(props, ["class", "children"]);
   return (
-    <h5 class={cn("mb-1 leading-none font-medium tracking-tight", local.class)} {...others} />
+    <h5 class={cn("mb-1 leading-none font-medium tracking-tight", local.class)} {...others}>
+      {local.children}
+    </h5>
   );
 };
 

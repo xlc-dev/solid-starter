@@ -134,6 +134,7 @@ const Carousel: Component<CarouselProps & ComponentProps<"div">> = (rawProps) =>
 
   return (
     <CarouselContext.Provider value={value}>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <div
         onKeyDown={handleKeyDown}
         class={cn("relative", local.class)}
