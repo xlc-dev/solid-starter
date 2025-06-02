@@ -3,7 +3,8 @@ import { splitProps } from "solid-js";
 
 import type { PolymorphicProps } from "@kobalte/core";
 import * as CollapsiblePrimitive from "@kobalte/core/collapsible";
-import { ChevronDown } from "lucide-solid";
+
+import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
 
 import { cn } from "~/utils";
 
@@ -38,7 +39,7 @@ const CollapsibleTrigger = <T extends ValidComponent = "button">(
       )}
       {...others}>
       {local.children}
-      <ChevronDown
+      <LineMdChevronSmallDown
         class={cn(
           "lucide-chevron h-4 w-4 shrink-0 text-current",
           "transition-transform duration-200 ease-in-out will-change-transform"
