@@ -8,7 +8,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["vinxi/types/client"],
+    "types": ["vinxi/types/client", "unplugin-icons/types/solid"],
     "allowJs": true,
     "strict": true,
     "noEmit": true,
